@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Geolocation API Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            text-align: center;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #display-box {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .error {
+            color: #DC3545;
+        }
+        .success {
+            color: #28A745;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Find Your Coordinates</h1>
+    <p>Click the button below to display your current latitude and longitude.</p>
+    
+    <button onclick="getUserLocation()">Get My Location</button>
+    
+    <div id="display-box"></div>
+
+    <script>
+        function getUserLocation() {
+            const displayBox = document.getElementById('display-box');
+            
+            // Clear previous results and show loading text
+            displayBox.innerHTML = "Requesting permission...";
+            displayBox.className = "";
+
+            // 1. Check if the browser supports the Geolocation API
+            if (!navigator.geolocation) {
+                displayBox.innerHTML = "Geolocation is not supported by your browser.";
+                displayBox.className = "error";
+                return;
+            }
+
+            // Optional settings: High accuracy, 5-second timeout, 0-millisecond cached age
+            const options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+
+            // 2. Request and retrieve the user's location
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
+        }
+
+        // Handles successful retrieval of location
+        function successCallback(position) {
+            const displayBox = document.getElementById('display-box');
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            displayBox.className = "success";
+            displayBox.innerHTML = `Latitude: ${latitude}° <br> Longitude: ${longitude}°`;
+        }
+
+        // Handles permissions denials and retrieval errors
+        function errorCallback(error) {
+            const displayBox = document.getElementById('display-box');
+            displayBox.className = "error";
+
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    displayBox.innerHTML = "Error: User denied the request for Geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    displayBox.innerHTML = "Error: Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    displayBox.innerHTML = "Error: The request to get user location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                default:
+                    displayBox.innerHTML = "Error: An unknown error occurred.";
+                    break;
+            }
+        }
+    </script>
+
+</body>
+</html>

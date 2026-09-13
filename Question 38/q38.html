@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        .calculator {
+            width: 360px;
+            margin: 50px auto;
+        }
+
+        .display {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+
+        #display {
+            width: 100%;
+            height: 60px;
+            box-sizing: border-box;
+            font-size: 25px;
+            text-align: right;
+            padding: 10px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+        }
+
+        button {
+            height: 60px;
+            border: none;
+            border-radius: 5px;
+            background-color: green;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+    <!-- Display and Clear -->
+    <div class="display">
+
+        <input type="text" id="display" readonly>
+
+        <button onclick="clearDisplay()">C</button>
+
+    </div>
+
+    <!-- Calculator Buttons -->
+    <div class="buttons">
+
+        <button onclick="add('1')">1</button>
+        <button onclick="add('2')">2</button>
+        <button onclick="add('3')">3</button>
+        <button onclick="add('/')">/</button>
+
+        <button onclick="add('4')">4</button>
+        <button onclick="add('5')">5</button>
+        <button onclick="add('6')">6</button>
+        <button onclick="add('*')">*</button>
+
+        <button onclick="add('7')">7</button>
+        <button onclick="add('8')">8</button>
+        <button onclick="add('9')">9</button>
+        <button onclick="add('-')">-</button>
+
+        <button onclick="add('0')">0</button>
+        <button onclick="add('.')">.</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="add('+')">+</button>
+
+    </div>
+
+</div>
+
+<script>
+
+function add(value) {
+    document.getElementById("display").value += value;
+}
+
+function calculate() {
+
+    let expression =
+        document.getElementById("display").value;
+
+    try {
+        document.getElementById("display").value =
+            eval(expression);
+    }
+    catch {
+        document.getElementById("display").value =
+            "Error";
+    }
+}
+
+function clearDisplay() {
+    document.getElementById("display").value = "";
+}
+
+</script>
+
+</body>
+</html>

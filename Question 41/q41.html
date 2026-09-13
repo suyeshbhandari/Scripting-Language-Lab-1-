@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clone Rows</title>
+
+    <style>
+        table {
+            width: 700px;
+            border-collapse: collapse;
+            margin: 30px auto;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        th {
+            background-color: black;
+            color: white;
+        }
+
+        input, select {
+            width: 95%;
+            padding: 8px;
+        }
+
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        .delete {
+            background-color: red;
+            color: white;
+            border: none;
+        }
+
+        #add {
+            margin-left: calc(50% - 350px);
+            background-color: skyblue;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<table id="productTable">
+
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td>1</td>
+
+            <td>
+                <select>
+                    <option>Select Product</option>
+                    <option>Laptop</option>
+                    <option>Mobile</option>
+                    <option>Keyboard</option>
+                </select>
+            </td>
+
+            <td>
+                <input type="number">
+            </td>
+
+            <td>
+                <button class="delete" onclick="deleteRow(this)">
+                    🗑
+                </button>
+            </td>
+        </tr>
+
+    </tbody>
+
+</table>
+
+<button id="add" onclick="addRow()">Add New</button>
+
+<script>
+
+function addRow() {
+
+    let table = document
+        .getElementById("productTable")
+        .getElementsByTagName("tbody")[0];
+
+    let firstRow = table.rows[0];
+
+    let newRow = firstRow.cloneNode(true);
+
+    table.appendChild(newRow);
+
+    updateNumber();
+}
+
+function deleteRow(button) {
+
+    let row = button.parentNode.parentNode;
+
+    row.remove();
+
+    updateNumber();
+}
+
+function updateNumber() {
+
+    let rows = document
+        .getElementById("productTable")
+        .getElementsByTagName("tbody")[0]
+        .rows;
+
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].cells[0].innerHTML = i + 1;
+    }
+}
+
+</script>
+
+</body>
+</html>

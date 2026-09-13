@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Paragraph Events</title>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial;
+        }
+
+        button {
+            padding: 15px;
+            margin: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #para {
+            margin: 30px;
+            padding: 20px;
+            font-size: 12pt;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>JavaScript Event Handling</h2>
+
+<p id="para">
+    This is a sample paragraph. JavaScript is used to
+    change its background, color, visibility and font size.
+</p>
+
+<button onclick="changeBackground()">
+    Change Background
+</button>
+
+<button onclick="changeParagraphBackground()">
+    Change Paragraph Background
+</button>
+
+<button onclick="hideParagraph()">
+    Hide Paragraph
+</button>
+
+<button onclick="showParagraph()">
+    Show Paragraph
+</button>
+
+<button onclick="increaseFont()">
+    Increase Font Size by 2pt
+</button>
+
+<button onclick="decreaseFont()">
+    Decrease Font Size by 2pt
+</button>
+
+<button onclick="resetFont()">
+    Reset Font into 12pt
+</button>
+
+<button onclick="changeTextColor()">
+    Change Text Color
+</button>
+
+<script>
+
+let para = document.getElementById("para");
+
+function changeBackground() {
+    document.body.style.backgroundColor = "lightblue";
+}
+
+function changeParagraphBackground() {
+    para.style.backgroundColor = "yellow";
+}
+
+function hideParagraph() {
+    para.style.display = "none";
+}
+
+function showParagraph() {
+    para.style.display = "block";
+}
+
+function increaseFont() {
+
+    let size = parseFloat(
+        window.getComputedStyle(para).fontSize
+    );
+
+    para.style.fontSize = (size + 2) + "px";
+}
+
+function decreaseFont() {
+
+    let size = parseFloat(
+        window.getComputedStyle(para).fontSize
+    );
+
+    if (size > 2) {
+        para.style.fontSize = (size - 2) + "px";
+    }
+}
+
+function resetFont() {
+    para.style.fontSize = "12pt";
+}
+
+function changeTextColor() {
+    para.style.color = "red";
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Classifier</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .number-box {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            border-radius: 5px;
+        }
+        .prime { background-color: #ff4757; } /* Red */
+        .even { background-color: #2ed573; }  /* Green */
+        .odd { background-color: #1e90ff; }   /* Blue */
+        
+        .legend {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Number Type Colorizer</h2>
+    <p>Primes take priority over standard even/odd coloring.</p>
+    
+    <input type="number" id="userInput" placeholder="Enter a number" min="1">
+    <button onclick="generateNumbers()">Generate</button>
+
+    <div class="legend">
+        <div class="legend-item"><div class="dot prime"></div> Prime</div>
+        <div class="legend-item"><div class="dot even"></div> Even</div>
+        <div class="legend-item"><div class="dot odd"></div> Odd</div>
+    </div>
+
+    <div id="resultGrid" class="grid"></div>
+</div>
+
+<script>
+function isPrime(num) {
+    if (num <= 1) return false;
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
+    }
+    return true;
+}
+
+function generateNumbers() {
+    const limit = parseInt(document.getElementById('userInput').value);
+    const grid = document.getElementById('resultGrid');
+    
+    grid.innerHTML = ''; 
+
+    if (isNaN(limit) || limit < 1) {
+        alert('Please enter a valid number greater than 0');
+        return;
+    }
+
+    for (let i = 1; i <= limit; i++) {
+        const box = document.createElement('div');
+        box.classList.add('number-box');
+        box.textContent = i;
+
+        if (isPrime(i)) {
+            box.classList.add('prime');
+        } else if (i % 2 === 0) {
+            box.classList.add('even');
+        } else {
+            box.classList.add('odd');
+        }
+
+        grid.appendChild(box);
+    }
+}
+</script>
+
+</body>
+</html>

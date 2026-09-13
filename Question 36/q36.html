@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM Window Control Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .btn-group {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 14px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+        }
+        .btn-open { background-color: #28a745; }
+        .btn-resize { background-color: #007bff; }
+        .btn-close { background-color: #dc3545; }
+        button:hover { opacity: 0.9; }
+        .stats-box {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Browser Object Model (BOM) Window Control</h2>
+    <p>Interact with the buttons below to control a secondary popup window and view live sizing metrics.</p>
+    
+    <!-- Control Buttons -->
+    <div class="btn-group">
+        <button class="btn-open" onclick="openNewWindow()">Open Window</button>
+        <button class="btn-resize" onclick="resizeNewWindow()">Resize Window</button>
+        <button class="btn-close" onclick="closeNewWindow()">Close Window</button>
+    </div>
+
+    <!-- Window Property Displays -->
+    <h3>Current Window Metrics</h3>
+    <div class="stats-box">
+        <p><strong>window.innerWidth:</strong> <span id="innerWidth">0</span>px (Viewport width)</p>
+        <p><strong>window.innerHeight:</strong> <span id="innerHeight">0</span>px (Viewport height)</p>
+        <p><strong>window.outerWidth:</strong> <span id="outerWidth">0</span>px (Total browser width)</p>
+        <p><strong>window.outerHeight:</strong> <span id="outerHeight">0</span>px (Total browser height)</p>
+    </div>
+</div>
+
+<script>
+    // Global variable to keep track of the opened window reference
+    let myWindow = null;
+
+    // Function to capture and display window metrics
+    function updateWindowMetrics() {
+        document.getElementById('innerWidth').textContent = window.innerWidth;
+        document.getElementById('innerHeight').textContent = window.innerHeight;
+        document.getElementById('outerWidth').textContent = window.outerWidth;
+        document.getElementById('outerHeight').textContent = window.outerHeight;
+    }
+
+    // Function to open a new browser window
+    function openNewWindow() {
+        // Configurations force most desktop browsers to open a popup instead of a tab
+        const features = "width=400,height=400,resizable=yes,scrollbars=yes";
+        
+        // window.open(url, target, features)
+        myWindow = window.open("", "_blank", features);
+        
+        if (myWindow) {
+            // Write some placeholder content to the newly opened window
+            myWindow.document.write("<h3>Popup Window</h3><p>Controlled by the main page!</p>");
+        } else {
+            alert("Popup blocker is active! Please allow popups for this page.");
+        }
+    }
+
+    // Function to resize the newly opened browser window
+    function resizeNewWindow() {
+        if (myWindow && !myWindow.closed) {
+            // window.resizeTo(width, height)
+            myWindow.resizeTo(600, 500);
+            myWindow.focus(); // Bring the window to focus to see the change
+        } else {
+            alert("No active window found! Click 'Open Window' first.");
+        }
+    }
+
+    // Function to close the newly opened window
+    function closeNewWindow() {
+        if (myWindow && !myWindow.closed) {
+            // window.close()
+            myWindow.close();
+            myWindow = null; // Clear reference
+        } else {
+            alert("There is no open window to close.");
+        }
+    }
+
+    // Event listeners to update metrics on initial load and window resizing
+    window.addEventListener('load', updateWindowMetrics);
+    window.addEventListener('resize', updateWindowMetrics);
+</script>
+
+</body>
+</html>

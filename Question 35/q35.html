@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM History Navigation Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 500px;
+        }
+        .control-group {
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        input {
+            padding: 8px;
+            width: 80px;
+            font-size: 14px;
+        }
+        .status-box {
+            background-color: #f4f4f9;
+            padding: 10px;
+            border-left: 5px solid #2196F3;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>BOM History Navigation</h2>
+    
+    <!-- Display current history stack size -->
+    <div class="status-box">
+        <strong>Current History Length:</strong> <span id="history-count">Loading...</span> pages
+    </div>
+
+    <br>
+
+    <!-- Standard Back and Forward Navigation -->
+    <div class="control-group">
+        <button id="btn-back">⬅️ Go Back</button>
+        <button id="btn-forward">Go Forward ➡️</button>
+    </div>
+
+    <!-- Fine-tuned control using history.go() -->
+    <div class="control-group">
+        <label for="page-delta">Jump pages: </label>
+        <input type="number" id="page-delta" value="-1" placeholder="e.g. -2, 2">
+        <button id="btn-go">Execute Go()</button>
+    </div>
+
+    <script>
+        // Function to display the history length property
+        function updateHistoryLength() {
+            // Accesses the BOM history.length property
+            document.getElementById('history-count').textContent = window.history.length;
+        }
+
+        // 1. Navigate to the previous page using history.back()
+        document.getElementById('btn-back').addEventListener('click', () => {
+            console.log("Navigating backward...");
+            window.history.back(); 
+        });
+
+        // 2. Navigate to the next page using history.forward()
+        document.getElementById('btn-forward').addEventListener('click', () => {
+            console.log("Navigating forward...");
+            window.history.forward(); 
+        });
+
+        // 3. Navigate a specified number of pages using history.go()
+        document.getElementById('btn-go').addEventListener('click', () => {
+            const deltaInput = document.getElementById('page-delta').value;
+            const delta = parseInt(deltaInput, 10);
+
+            if (!isNaN(delta)) {
+                console.log(`Jumping in history by ${delta} pages...`);
+                window.history.go(delta); 
+            } else {
+                alert("Please enter a valid integer (positive or negative number).");
+            }
+        });
+
+        // Initialize the length display on page load
+        window.addEventListener('DOMContentLoaded', updateHistoryLength);
+    </script>
+</body>
+</html>

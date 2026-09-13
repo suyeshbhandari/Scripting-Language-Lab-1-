@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Image Slider</title>
+    <style>
+        /* Center everything nicely on the webpage */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Fixed container dimension for consistency */
+        .slider-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Enforce uniform image stretching behavior */
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* First slide displayed by default */
+        .active {
+            display: block;
+        }
+
+        /* Position the navigation buttons over the graphic */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            border: none;
+            padding: 14px 18px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+            user-select: none;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .prev-btn {
+            left: 15px;
+        }
+
+        .next-btn {
+            right: 15px;
+        }
+    </style>
+</head>
+<body>
+
+          <div class="slider-container">
+        <!-- Slide 1: Modern Red Sports Car -->
+        <div class="slide active">
+            <img src="car1.avif" alt="Red Supercar">
+        </div>
+        <!-- Slide 2: Sleek Yellow Sports Car -->
+        <div class="slide">
+            <img src="car2.avif" alt="Yellow Supercar">
+        </div>
+        <!-- Slide 3: Aggressive Black Sports Car -->
+        <div class="slide">
+            <img src="car3.avif" alt="Black Supercar">
+        </div>
+        <!-- Slide 4: Clean White Sports Car -->
+        <div class="slide">
+            <img src="car4.avif" alt="White Supercar">
+        </div>
+        <!-- Slide 5: Futuristic Concept Hypercar -->
+        <div class="slide">
+            <img src="car5.avif" alt="Concept Supercar">
+        </div>
+
+        <!-- Navigation Buttons -->
+        <button class="nav-btn prev-btn" id="prevBtn">&#10094;</button>
+        <button class="nav-btn next-btn" id="nextBtn">&#10095;</button>
+    </div>
+
+
+
+    <script>
+        // Track state and fetch all required elements
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentIndex = 0;
+
+        // Core display rendering function
+        function updateSlider(index) {
+            // Remove active class from the current visible image
+            slides[currentIndex].classList.remove('active');
+            
+            // Assign the newly targeted slide index
+            currentIndex = index;
+            
+            // Add active class to show the target image
+            slides[currentIndex].classList.add('active');
+        }
+
+        // Logic for tracking forward progression
+        function nextSlide() {
+            // Loop back to the first image if we pass the last one
+            let nextIndex = (currentIndex + 1) % slides.length;
+            updateSlider(nextIndex);
+        }
+
+        // Logic for tracking backward progression
+        function prevSlide() {
+            // Loop back to the final image if we drop below zero
+            let prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateSlider(prevIndex);
+        }
+
+        // Hook up user triggers to button components
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM Environment Demo</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .info-group {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #fafafa;
+            border-left: 5px solid #007bff;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Browser Object Model (BOM) Demo</h2>
+    <p>This page displays live data about your browsing environment using the BOM <code>navigator</code> object.</p>
+    
+    <div class="info-group">
+        <div class="label">User Agent:</div>
+        <div id="userAgent">Loading...</div>
+    </div>
+    
+    <div class="info-group">
+        <div class="label">Language:</div>
+        <div id="language">Loading...</div>
+    </div>
+    
+    <div class="info-group">
+        <div class="label">Platform:</div>
+        <div id="platform">Loading...</div>
+    </div>
+    
+    <div class="info-group">
+        <div class="label">Connection Status:</div>
+        <div id="onlineStatus">Loading...</div>
+    </div>
+
+    <button id="updateBtn">Update Information</button>
+</div>
+
+<script>
+    function updateBOMInfo() {
+        document.getElementById('userAgent').textContent = navigator.userAgent;
+        document.getElementById('language').textContent = navigator.language;
+        document.getElementById('platform').textContent = navigator.platform || "Unknown/Restricted";
+        
+        const statusText = navigator.onLine ? "Online 🟢" : "Offline 🔴";
+        document.getElementById('onlineStatus').textContent = statusText;
+    }
+
+    window.addEventListener('DOMContentLoaded', updateBOMInfo);
+
+    document.getElementById('updateBtn').addEventListener('click', updateBOMInfo);
+</script>
+
+</body>
+</html>

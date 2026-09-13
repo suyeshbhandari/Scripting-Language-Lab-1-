@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie Manager</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        .section { margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; }
+        input { margin: 5px; padding: 5px; }
+        button { padding: 5px 10px; cursor: pointer; }
+        table { border-collapse: collapse; margin-top: 15px; width: 50%; }
+        th, td { border: 1px solid #aaa; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+
+    <h2>JavaScript Cookie Manager</h2>
+
+    <!-- a. Accept Key and Values and store into cookie -->
+    <div class="section">
+        <h3>Create / Update Cookie</h3>
+        <input type="text" id="setKey" placeholder="Enter Key">
+        <input type="text" id="setValue" placeholder="Enter Value">
+        <button onclick="setCookieBtn()">Save Cookie</button>
+    </div>
+
+    <!-- b. Read cookie according to key entered -->
+    <div class="section">
+        <h3>Read Cookie by Key</h3>
+        <input type="text" id="readKey" placeholder="Enter Key">
+        <button onclick="getCookieBtn()">Read Cookie</button>
+        <p id="readValueOutput"></p>
+    </div>
+
+    <!-- d. Delete cookie according to key entered -->
+    <div class="section">
+        <h3>Delete Cookie by Key</h3>
+        <input type="text" id="deleteKey" placeholder="Enter Key">
+        <button onclick="deleteCookieBtn()">Delete Cookie</button>
+    </div>
+
+    <!-- c & e. Display all cookies in tabular format & Delete all cookies -->
+    <div class="section">
+        <h3>Manage All Cookies</h3>
+        <button onclick="displayCookies()">Refresh Cookie Table</button>
+        <button onclick="clearAllCookiesBtn()">Delete All Cookies</button>
+        <div id="cookieTableContainer"></div>
+    </div>
+
+    <script>
+        // Helper function to set a cookie
+        function setCookie(name, value, days = 7) {
+            let expires = "";
+            if (days) {
+                let date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            // encodeURIComponent handles special characters and spaces safely
+            document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/; SameSite=Lax";
+        }
+
+        // Helper function to get a specific cookie value by key
+        function getCookie(name) {
+            let nameEQ = encodeURIComponent(name) + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(nameEQ) === 0) {
+                    return decodeURIComponent(c.substring(nameEQ.length, c.length));
+                }
+            }
+            return null;
+        }
+
+        // Helper function to delete a cookie by setting expiration to the past
+        function deleteCookie(name) {
+            document.cookie = encodeURIComponent(name) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Lax";
+        }
+
+        // Helper function to get all cookies as an array of key-value pairs
+        function getAllCookies() {
+            let cookies = [];
+            if (document.cookie === "") return cookies;
+            
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let parts = ca[i].split('=');
+                let name = decodeURIComponent(parts[0].trim());
+                let value = parts.length > 1 ? decodeURIComponent(parts.slice(1).join('=')) : "";
+                if (name) {
+                    cookies.push({ key: name, val: value });
+                }
+            }
+            return cookies;
+        }
+
+        // UI Handlers
+        function setCookieBtn() {
+            let key = document.getElementById("setKey").value.trim();
+            let value = document.getElementById("setValue").value.trim();
+            if (key === "") {
+                alert("Key cannot be empty");
+                return;
+            }
+            setCookie(key, value);
+            alert(`Cookie '${key}' saved!`);
+            displayCookies();
+        }
+
+        function getCookieBtn() {
+            let key = document.getElementById("readKey").value.trim();
+            if (key === "") {
+                alert("Please enter a key to search");
+                return;
+            }
+            let value = getCookie(key);
+            let output = document.getElementById("readValueOutput");
+            if (value !== null) {
+                output.innerText = `Value: ${value}`;
+            } else {
+                output.innerText = "Cookie not found.";
+            }
+        }
+
+        function deleteCookieBtn() {
+            let key = document.getElementById("deleteKey").value.trim();
+            if (key === "") {
+                alert("Please enter a key to delete");
+                return;
+            }
+            deleteCookie(key);
+            alert(`Cookie '${key}' deleted!`);
+            displayCookies();
+        }
+
+        function clearAllCookiesBtn() {
+            let cookies = getAllCookies();
+            cookies.forEach(c => deleteCookie(c.key));
+            alert("All cookies deleted!");
+            displayCookies();
+        }
+
+        function displayCookies() {
+            let cookies = getAllCookies();
+            let container = document.getElementById("cookieTableContainer");
+            
+            if (cookies.length === 0) {
+                container.innerHTML = "<p>No cookies found.</p>";
+                return;
+            }
+
+            let tableHtml = `<table>
+                                <tr>
+                                    <th>Key</th>
+                                    <th>Value</th>
+                                </tr>`;
+            
+            cookies.forEach(c => {
+                tableHtml += `<tr>
+                                <td>${c.key}</td>
+                                <td>${c.val}</td>
+                             </tr>`;
+            });
+            
+            tableHtml += `</table>`;
+            container.innerHTML = tableHtml;
+        }
+
+        // Load the table automatically when the page opens
+        window.onload = displayCookies;
+    </script>
+</body>
+</html>
