@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Number Grid</title>
+  <style>
+    #container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      padding: 10px;
+    }
+    .num-box {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border: 1px solid #ccc;
+    }
+    .even { background-color: green; color: white; }
+    .odd { background-color: yellow; color: black; }
+    .prime { background-color: red; color: white; }
+  </style>
+</head>
+<body>
+
+  <div id="container"></div>
+
+  <script>
+    // Function to check if a number is prime
+    function isPrime(num) {
+      if (num < 2) return false;
+      for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
+      }
+      return true;
+    }
+
+    const container = document.getElementById('container');
+
+    // Loop from 0 to 100
+    for (let i = 0; i <= 100; i++) {
+      const div = document.createElement('div');
+      div.textContent = i;
+      div.classList.add('num-box');
+
+      // Check conditions (Prime takes precedence, or order as required)
+      if (isPrime(i)) {
+        div.classList.add('prime');
+      } else if (i % 2 === 0) {
+        div.classList.add('even');
+      } else {
+        div.classList.add('odd');
+      }
+
+      container.appendChild(div);
+    }
+  </script>
+
+</body>
+</html>
