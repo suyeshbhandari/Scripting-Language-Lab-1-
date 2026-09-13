@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q24</title>
+  <script>
+    let dog = {};
+
+console.log(dog);
+
+
+dog.name = "Tommy";
+dog.legs = 4;
+dog.color = "Brown";
+dog.age = 5;
+
+
+dog.bark = function(){
+    return "woof woof";
+};
+
+
+console.log(dog.name);
+console.log(dog.legs);
+console.log(dog.color);
+console.log(dog.age);
+console.log(dog.bark());
+
+
+// New properties
+
+dog.breed = "Labrador";
+
+
+dog.getDogInfo = function(){
+
+    return `${this.name} is ${this.age} years old`;
+
+};
+
+
+console.log(dog.getDogInfo());
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

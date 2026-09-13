@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q25</title>
+  <script>
+    let personAccount = {
+
+    firstName:"Ram",
+    lastName:"Prasad",
+
+    incomes:[],
+
+    expenses:[],
+
+
+    totalIncome:function(){
+
+        return this.incomes.reduce(
+            (sum,item)=>sum+item.amount,0
+        );
+
+    },
+
+
+    totalExpense:function(){
+
+        return this.expenses.reduce(
+            (sum,item)=>sum+item.amount,0
+        );
+
+    },
+
+
+    accountBalance:function(){
+
+        return this.totalIncome()
+        - this.totalExpense();
+
+    },
+
+
+    addIncome:function(amount,desc){
+
+        this.incomes.push({
+            amount:amount,
+            description:desc
+        });
+
+    },
+
+
+    addExpense:function(amount,desc){
+
+        this.expenses.push({
+            amount:amount,
+            description:desc
+        });
+
+    },
+
+
+    accountInfo:function(){
+
+        console.log(
+        this.firstName,
+        this.lastName
+        );
+
+        console.log(
+        "Balance:",
+        this.accountBalance()
+        );
+
+    }
+
+};
+
+
+personAccount.addIncome(50000,"Salary");
+
+personAccount.addExpense(10000,"Food");
+
+personAccount.accountInfo();
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
