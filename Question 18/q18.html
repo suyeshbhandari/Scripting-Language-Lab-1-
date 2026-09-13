@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q18</title>
+  <script>
+    function dateDifference(date1, date2){
+
+    let diff = Math.abs(date2 - date1);
+
+    let days = diff / (1000*60*60*24);
+
+    return days;
+}
+
+
+let d1 = new Date("2026-01-01");
+let d2 = new Date("2026-01-10");
+
+console.log(dateDifference(d1,d2));
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q19</title>
+</head>
+<body>
+  <form>
+
+Enter Birth Year:
+<input type="number" id="year">
+
+<button type="button" onclick="calculateAge()">
+Calculate
+</button>
+
+</form>
+
+
+<script>
+
+function calculateAge(){
+
+    let birthYear =
+    document.getElementById("year").value;
+
+
+    let currentYear =
+    new Date().getFullYear();
+
+
+    let age = currentYear - birthYear;
+
+
+    alert("Your age is: " + age);
+}
+
+</script>
+</body>
+</html>
