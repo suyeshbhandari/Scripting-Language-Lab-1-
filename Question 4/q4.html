@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q4</title>
+  <script>
+//     function capitalizeWords(str) {
+
+//     let words = str.split(" ");
+
+//     for(let i = 0; i < words.length; i++) {
+
+//         words[i] =
+//             words[i][0].toUpperCase() +
+//             words[i].slice(1);
+//     }
+
+//     return words.join(" ");
+// }
+
+
+// // Function call
+// let text = prompt("Enter a sentence:");
+
+// let result = capitalizeWords(text);
+
+// alert(`Converted string: ${result}`);
+function capitalizeWords(str) {
+
+
+    let words = str.split(" ");
+
+
+    for(let i = 0; i < words.length; i++) {
+
+
+        words[i] =
+            words[i][0].toUpperCase() +
+            words[i].slice(1);
+
+    }
+
+
+    return words.join(" ");
+}
+
+
+
+let text = prompt("Enter a sentence:");
+
+
+let result = capitalizeWords(text);
+
+
+console.log("Converted string: " + result);
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

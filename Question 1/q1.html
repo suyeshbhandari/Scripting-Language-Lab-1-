@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q1</title>
+<script type="text/javascript">
+  // var x = prompt("Enter a number.");
+  // var copy = parseInt(x);   // Fix 1: convert string → integer
+  // var temp;
+  // var result = 0;
+
+  // while (copy > 0) {                        // Fix 2: correct loop condition
+  //   temp = copy % 10;                       // extract last digit
+  //   result = result * 10 + temp;            // Fix 3: correct formula to build reverse
+  //   copy = Math.floor(copy / 10);           // Fix 4: actually remove the digit
+  // }
+
+  // alert("The reverse of " + x + " is: " + result);
+  var x = prompt("Enter a number.");
+
+var copy = parseInt(x);
+
+var temp;
+var result = 0;
+
+
+while (copy > 0) {
+
+    temp = copy % 10;
+
+    result = result * 10 + temp;
+
+    copy = Math.floor(copy / 10);
+}
+
+
+console.log("The reverse of " + x + " is: " + result);
+</script>
+</head>
+<body>
+<h1>Q1</h1>
+</body>
+</html>

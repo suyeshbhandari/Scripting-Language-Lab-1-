@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q2</title>
+  <script>
+//     function alphabetizeInput() {
+//     // 1. Prompt the user for input
+//     const userInput = prompt("Enter a string to alphabetize:");
+    
+//     // 2. Handle the case where the user clicks 'Cancel'
+//     if (userInput === null) {
+//         console.log("Input canceled.");
+//         return;
+//     }
+    
+//     // 3. Sort the string and output the result
+//     const sortedString = [...userInput].sort().join('');
+//     alert(`Sorted result: ${sortedString}`);
+// }
+
+// // Run the program
+// alphabetizeInput();
+function alphabetizeInput() {
+
+    const userInput = prompt("Enter a string to alphabetize:");
+
+    if (userInput === null) {
+        console.log("Input canceled.");
+        return;
+    }
+
+
+    const sortedString = [...userInput]
+                            .sort()
+                            .join('');
+
+
+    console.log("Sorted result: " + sortedString);
+}
+
+
+alphabetizeInput();
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
